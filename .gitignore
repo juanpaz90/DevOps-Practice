@@ -1,0 +1,9 @@
+*.log
+*.pot
+*.pyc
+__pycache__/
+
+.pytest_cache
+.idea
+
+db.sqlite3
