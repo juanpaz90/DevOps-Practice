@@ -21,7 +21,7 @@ steps:
   # STEP 3 - CREATE GCS BUCKET
   - id: Create-bucket
     name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: gcloud
+    entrypoint: bash
     args:
     - 'c'
     - |
