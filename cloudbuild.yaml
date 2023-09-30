@@ -32,12 +32,13 @@ steps:
 
   # STEP 3 - CREATE CLUSTER USING TERRAFORM
   - id: Create-cluster
-    name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
+    name: 'gcr.io/cloud-builders/terraform'
+    entrypoint: 'sh'
     args:
     - '-c'
     - |
       terraform init
+      terraform plan
       terraform apply -auto-approve
     waitFor: [ "Push-to-Container-Registry" ]
 #    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api", "Push-to-Container-Registry" ]
