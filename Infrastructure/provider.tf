@@ -1,13 +1,14 @@
+#data "google_client_config" "default" {}
+
 terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = ">=4.51.0"
+      version =  "4.84.0"
     }
   }
 }
 
-data "google_client_config" "default" {}
 
 provider "google" {
   credentials = file(var.credentials)
