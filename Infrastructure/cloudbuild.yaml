@@ -35,17 +35,11 @@ steps:
         terraform init
         terraform plan
         terraform apply -auto-approve
-  
 
-#  # STEP 3 - CREATE CLUSTER USING TERRAFORM
-#  - id: Create-cluster
-#    name: 'hashicorp/terraform:0.12.24'
-#    entrypoint: 'sh'
-#    args:
-#    - '-c'
-#    - |
-#      terraform init
-#      terraform plan
-#      terraform apply -auto-approve
-#    waitFor: [ "Push-to-Container-Registry" ]
-##    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api", "Push-to-Container-Registry" ]
+  # STEP 5 - DEPLOY DJANGO CONTAINER TO GKE
+  - id: Deploy-to-GKE
+    name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - apply
+      - -f
+      - k8s/deployment.yaml

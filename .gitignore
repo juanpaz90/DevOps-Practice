@@ -7,5 +7,7 @@ api/migrations/__pycache__/*.pyc
 
 .pytest_cache
 .idea
+.terraform
+.terraform.lock.hcl
 
 db.sqlite3
