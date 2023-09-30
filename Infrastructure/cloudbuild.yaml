@@ -26,7 +26,7 @@ steps:
 
   # STEP 4 - TERRAFORM INIT & PLAN
   - id: tf-init-and-plan
-    name: 'hashicorp/terraform:0.12.24'
+    name: 'hashicorp/terraform:1.0.0'
     entrypoint: 'sh'
     args:
       - '-c'
