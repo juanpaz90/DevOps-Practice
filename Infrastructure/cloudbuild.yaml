@@ -24,7 +24,7 @@ steps:
     args: [ 'mb', 'gs://$PROJECT_ID-tfstate']
 
 
-  # STEP 4 - TERRAFORM INIT, PLAN & APPLY
+  # STEP 4 - CREATE K8S CLUSTER
   - id: tf-init-and-plan
     name: 'hashicorp/terraform:1.0.0'
     entrypoint: 'sh'
@@ -35,8 +35,21 @@ steps:
         terraform init
         terraform plan
         terraform apply -auto-approve
+   
 
-  # STEP 5 - DEPLOY DJANGO CONTAINER TO GKE
+  # STER 5 - CONNECT TO K8S CLUSTER
+  - id: Connect-to-GKE
+    name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - container
+      - clusters
+      - get-credentials
+      - django-app-cluster
+      - --region us-central1
+      - --project $PROJECT_ID
+    waitFor: [ "tf-init-and-plan" ]
+
+  # STEP 6 - DEPLOY DJANGO CONTAINER TO GKE
   - id: Deploy-to-GKE
     name: 'gcr.io/cloud-builders/kubectl'
     entrypoint: 'kubectl'
