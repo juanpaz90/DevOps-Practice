@@ -7,6 +7,7 @@ terraform {
   }
 }
 
+data "google_client_config" "default" {}
 
 provider "google" {
   credentials = file(var.credentials)
