@@ -9,9 +9,9 @@ terraform {
 
 
 provider "google" {
-  credentials = file("gcp_credentials/playground-s-11-1e752bc0-2f4b0370544d.json")
+  credentials = file("gcp_credentials/playground-s-11-4a370ae9-c5a1e2c2d82d.json")
 
-  project = "playground-s-11-1e752bc0"
+  project = "playground-s-11-4a370ae9"
   region  = "us-central1"
   zone    = "us-central1-c"
 }

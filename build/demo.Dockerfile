@@ -2,10 +2,10 @@ FROM python:3.7.17
 
 WORKDIR /usr/src/app
 
-COPY src/ ./src/
-COPY build/ ./build/
+COPY src/ .
+RUN pip install -r requirements.txt
+COPY build/run_django.sh .
 
-RUN pip install -r src/requirements.txt
 EXPOSE 8000
 
-CMD ["sh", "./build/demo.sh"]
+CMD ["sh", "./run_django.sh"]
