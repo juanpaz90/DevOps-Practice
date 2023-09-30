@@ -27,7 +27,8 @@ steps:
     args:
       - push
       - gcr.io/$PROJECT_ID/django-app
-    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api", "Build-container-django-demo" ]
+    waitFor: [ "API-Kubernetes-engine-api", "Build-container-django-demo" ]
+#    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api", "Build-container-django-demo" ]
 
   # STEP 3 - CREATE CLUSTER USING TERRAFORM
   - id: Create-cluster
@@ -39,4 +40,5 @@ steps:
       cd terraform
       terraform init
       terraform apply -auto-approve
-    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api", "Push-to-Container-Registry" ]
+    waitFor: [ "API-Kubernetes-engine-api", "Push-to-Container-Registry" ]
+#    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api", "Push-to-Container-Registry" ]
