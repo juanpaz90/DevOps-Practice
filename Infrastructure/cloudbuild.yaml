@@ -24,6 +24,27 @@ steps:
     args: [ 'mb', 'gs://$PROJECT_ID-tfstate']
 
 
+  # STEP 4 - TERRAFORM INIT
+  - id: tf-init
+    name: 'hashicorp/terraform:0.12.24'
+    entrypoint: 'sh'
+    args:
+      - 'c'
+      - |
+        terraform init
+  
+
+  # STEP 4 - TERRAFORM PLAN
+  # STEP 4 - TERRAFORM INIT
+  - id: tf-init
+    name: 'hashicorp/terraform:0.12.24'
+    entrypoint: 'sh'
+    args:
+      - 'c'
+      - |
+        terraform plan
+
+
 #  # STEP 3 - CREATE CLUSTER USING TERRAFORM
 #  - id: Create-cluster
 #    name: 'hashicorp/terraform:0.12.24'
