@@ -1,5 +1,5 @@
 terraform {
   backend: "gcs" {
-    bucket = "terraform-state-bucket"
+    bucket = "playground-s-11-4a370ae9-tfstate"
     prefix = "terraform/state"}
 }
