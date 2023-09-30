@@ -32,7 +32,7 @@ steps:
 
   # STEP 3 - CREATE CLUSTER USING TERRAFORM
   - id: Create-cluster
-    name: 'gcr.io/cloud-builders/terraform'
+    name: 'hashicorp/terraform:0.12.24'
     entrypoint: 'sh'
     args:
     - '-c'
