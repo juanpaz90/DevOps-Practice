@@ -19,7 +19,7 @@ steps:
     - '-c'
     - |
       docker build -t gcr.io/$PROJECT_ID/django-app -f 'build/demo.Dockerfile' .
-    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api" ]
+#    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api" ]
 
   # STEP 2 - PUSH DJANGO CONTAINER
   - id: Push-to-Container-Registry
