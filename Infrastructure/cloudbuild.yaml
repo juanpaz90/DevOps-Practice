@@ -20,12 +20,9 @@ steps:
 
   # STEP 3 - CREATE GCS BUCKET
   - id: Create-bucket
-    name: 'gcr.io/cloud-builders/gcloud'
+    name: 'gcr.io/cloud-builders/gsutil'
     entrypoint: bash
-    args:
-    - 'c'
-    - |
-      gsutil mb gs://$PROJECT_ID-tfstate
+    args: [ 'mb', 'gs://$PROJECT_ID-tfstate']
 
 
 #  # STEP 3 - CREATE CLUSTER USING TERRAFORM
