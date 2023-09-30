@@ -29,7 +29,7 @@ steps:
     name: 'hashicorp/terraform:0.12.24'
     entrypoint: 'sh'
     args:
-      - 'c'
+      - '-c'
       - |
         terraform init
   
@@ -39,7 +39,7 @@ steps:
     name: 'hashicorp/terraform:0.12.24'
     entrypoint: 'sh'
     args:
-      - 'c'
+      - '-c'
       - |
         terraform plan
 
