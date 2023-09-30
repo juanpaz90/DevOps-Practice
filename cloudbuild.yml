@@ -1,5 +1,17 @@
 steps:
-  # STEP 0 - DJANGO CONTAINER
+  # STEP 0 - ENABLE NECESSARY APIS
+  - id: API-Container-registry
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: gcloud
+    args: ['services', 'enable', 'containerregistry.googleapis.com']
+
+  - id: API-Kubernetes-engine-api
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: gcloud
+    args: [ 'services', 'enable', 'container.googleapis.com' ]
+    waitFor: [ "API-Container-registry" ]
+
+  # STEP 1 - CREATE DJANGO CONTAINER
   - id: Build-container-django-demo
     name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
@@ -7,12 +19,13 @@ steps:
     - '-c'
     - |
       docker build -t gcr.io/$PROJECT_ID/django-app -f 'build/demo.Dockerfile' .
+    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api" ]
 
-    # STEP 2 - PUSH DJANGO CONTAINER
-    - id: Push-to-Container-Registry
-      name: 'gcr.io/cloud-builders/docker'
-      args:
-        - push
-        - gcr.io/$PROJECT_ID/django-app
-      waitFor: [ "Build-container-django-demo" ]
+  # STEP 2 - PUSH DJANGO CONTAINER
+  - id: Push-to-Container-Registry
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - gcr.io/$PROJECT_ID/django-app
+    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api", "Build-container-django-demo" ]
 
