@@ -1,16 +1,4 @@
 steps:
-#  # STEP 0 - ENABLE NECESSARY APIS
-#  - id: API-Container-registry
-#    name: 'gcr.io/cloud-builders/gcloud'
-#    entrypoint: gcloud
-#    args: ['services', 'enable', 'containerregistry.googleapis.com']
-#
-#  - id: API-Kubernetes-engine-api
-#    name: 'gcr.io/cloud-builders/gcloud'
-#    entrypoint: gcloud
-#    args: [ 'services', 'enable', 'container.googleapis.com' ]
-#    waitFor: [ "API-Container-registry" ]
-
   # STEP 1 - CREATE DJANGO CONTAINER
   - id: Build-container-django-demo
     name: 'gcr.io/cloud-builders/docker'
@@ -19,7 +7,7 @@ steps:
     - '-c'
     - |
       docker build -t gcr.io/$PROJECT_ID/django-app -f 'build/demo.Dockerfile' .
-#    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api" ]
+
 
   # STEP 2 - PUSH DJANGO CONTAINER
   - id: Push-to-Container-Registry
@@ -28,17 +16,27 @@ steps:
       - push
       - gcr.io/$PROJECT_ID/django-app
     waitFor: [ "Build-container-django-demo" ]
-#    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api", "Build-container-django-demo" ]
 
-  # STEP 3 - CREATE CLUSTER USING TERRAFORM
-  - id: Create-cluster
-    name: 'hashicorp/terraform:0.12.24'
-    entrypoint: 'sh'
+
+  # STEP 3 - CREATE GCS BUCKET
+  - id: Create-bucket
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: gcloud
     args:
-    - '-c'
+    - 'c'
     - |
-      terraform init
-      terraform plan
-      terraform apply -auto-approve
-    waitFor: [ "Push-to-Container-Registry" ]
-#    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api", "Push-to-Container-Registry" ]
+      gsutil mb gs://$PROJECT_ID-tfstate
+
+
+#  # STEP 3 - CREATE CLUSTER USING TERRAFORM
+#  - id: Create-cluster
+#    name: 'hashicorp/terraform:0.12.24'
+#    entrypoint: 'sh'
+#    args:
+#    - '-c'
+#    - |
+#      terraform init
+#      terraform plan
+#      terraform apply -auto-approve
+#    waitFor: [ "Push-to-Container-Registry" ]
+##    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api", "Push-to-Container-Registry" ]
