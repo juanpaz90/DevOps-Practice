@@ -29,3 +29,14 @@ steps:
       - gcr.io/$PROJECT_ID/django-app
     waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api", "Build-container-django-demo" ]
 
+  # STEP 3 - CREATE CLUSTER USING TERRAFORM
+  - id: Create-cluster
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      cd terraform
+      terraform init
+      terraform apply -auto-approve
+    waitFor: [ "API-Container-registry", "API-Kubernetes-engine-api", "Push-to-Container-Registry" ]
