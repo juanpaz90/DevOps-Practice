@@ -39,6 +39,7 @@ steps:
   # STEP 5 - DEPLOY DJANGO CONTAINER TO GKE
   - id: Deploy-to-GKE
     name: 'gcr.io/cloud-builders/kubectl'
+    entrypoint: 'kubectl'
     args:
       - apply
       - -f
