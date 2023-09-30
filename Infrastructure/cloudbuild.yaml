@@ -49,6 +49,7 @@ steps:
       - --project $PROJECT_ID
     waitFor: [ "tf-init-and-plan" ]
 
+
   # STEP 6 - DEPLOY DJANGO CONTAINER TO GKE
   - id: Deploy-to-GKE
     name: 'gcr.io/cloud-builders/kubectl'
@@ -56,4 +57,14 @@ steps:
     args:
       - apply
       - -f
-      - k8s/deployment.yaml
+      - k8s/django-deployment.yml
+
+
+  # STEP 7 - DEPLOY DJANGO SERVICE TO GKE
+  - id: Deploy-Service-to-GKE
+    name: 'gcr.io/cloud-builders/kubectl'
+    entrypoint: 'kubectl'
+    args:
+      - apply
+      - -f
+      - k8s/django-service.yml
