@@ -1,5 +1,5 @@
 steps:
-   STEP 0 - ENABLE NECESSARY APIS
+  # STEP 0 - ENABLE NECESSARY APIS
   - id: API-Container-registry
     name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: gcloud
