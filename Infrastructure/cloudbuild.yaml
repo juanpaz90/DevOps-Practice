@@ -32,6 +32,8 @@ steps:
       - '-c'
       - |
         terraform init
+        pwd
+        ls
   
 
   # STEP 4 - TERRAFORM PLAN
