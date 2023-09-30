@@ -21,7 +21,6 @@ steps:
   # STEP 3 - CREATE GCS BUCKET
   - id: Create-bucket
     name: 'gcr.io/cloud-builders/gsutil'
-    entrypoint: bash
     args: [ 'mb', 'gs://$PROJECT_ID-tfstate']
 
 
