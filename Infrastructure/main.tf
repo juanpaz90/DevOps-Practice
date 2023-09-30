@@ -6,3 +6,4 @@ resource "google_container_cluster" "my_cluster" {
     machine_type = "e2-micro"
   }
 }
+
