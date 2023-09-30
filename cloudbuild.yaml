@@ -1,15 +1,15 @@
 steps:
-  # STEP 0 - ENABLE NECESSARY APIS
-  - id: API-Container-registry
-    name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: gcloud
-    args: ['services', 'enable', 'containerregistry.googleapis.com']
-
-  - id: API-Kubernetes-engine-api
-    name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: gcloud
-    args: [ 'services', 'enable', 'container.googleapis.com' ]
-    waitFor: [ "API-Container-registry" ]
+#  # STEP 0 - ENABLE NECESSARY APIS
+#  - id: API-Container-registry
+#    name: 'gcr.io/cloud-builders/gcloud'
+#    entrypoint: gcloud
+#    args: ['services', 'enable', 'containerregistry.googleapis.com']
+#
+#  - id: API-Kubernetes-engine-api
+#    name: 'gcr.io/cloud-builders/gcloud'
+#    entrypoint: gcloud
+#    args: [ 'services', 'enable', 'container.googleapis.com' ]
+#    waitFor: [ "API-Container-registry" ]
 
   # STEP 1 - CREATE DJANGO CONTAINER
   - id: Build-container-django-demo
