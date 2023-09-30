@@ -24,7 +24,7 @@ steps:
     args: [ 'mb', 'gs://$PROJECT_ID-tfstate']
 
 
-  # STEP 4 - TERRAFORM INIT & PLAN
+  # STEP 4 - TERRAFORM INIT, PLAN & APPLY
   - id: tf-init-and-plan
     name: 'hashicorp/terraform:1.0.0'
     entrypoint: 'sh'
@@ -34,6 +34,7 @@ steps:
         cd Infrastructure/
         terraform init
         terraform plan
+        terraform apply -auto-approve
   
 
 #  # STEP 3 - CREATE CLUSTER USING TERRAFORM
