@@ -1,10 +1,10 @@
 FROM python:3.7.17
 
-COPY src/ /django-app
-COPY src/requirements.txt /django-app
-COPY build/run_django.sh /django-app
+WORKDIR /usr/src/app
 
-WORKDIR /django-app
+COPY django-app/ .
+RUN pip install -r requirements.txt
+COPY build/run_django.sh .
 
 EXPOSE 8000
 
