@@ -39,15 +39,16 @@ steps:
 
   # STER 5 - CONNECT TO K8S CLUSTER
   - id: Connect-to-GKE
-    name: 'gcr.io/cloud-builders/gcloud'
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
+#     gcloud container clusters get-credentials django-app-cluster --region us-central1 --project playground-s-11-4a370ae9
     args:
       - container
       - clusters
       - get-credentials
       - django-app-cluster
-      - --region us-central1
-      - --project $PROJECT_ID
+      - --region=us-central1
+      - --project=$PROJECT_ID
     waitFor: [ "tf-init-and-plan" ]
 
 
