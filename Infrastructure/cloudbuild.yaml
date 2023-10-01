@@ -24,8 +24,9 @@ steps:
     args: [ 'mb', 'gs://$PROJECT_ID-tfstate']
 
 
-  # STEP 4 - CREATE K8S CLUSTER
-  - id: tf-init-and-plan
+  # STEPS 4 TO 6 - CREATE K8S CLUSTER
+  # STEP 4 - TERRAFORM INIT
+  - id: tf-init
     name: 'hashicorp/terraform:1.0.0'
     entrypoint: 'sh'
     args:
@@ -33,11 +34,31 @@ steps:
       - |
         cd Infrastructure/
         terraform init
+        
+
+  # STEP 5 - TERRAFORM PLAN
+  - id: tf-plan
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        cd Infrastructure/
         terraform plan
+        
+
+  # STEP 6 - TERRAFORM APPLY
+  - id: tf-apply
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        cd Infrastructure/
         terraform apply -auto-approve
    
 
-  # STER 5 - CONNECT TO K8S CLUSTER
+  # STEP 7 - CONNECT TO K8S CLUSTER
   - id: Connect-to-GKE
     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
@@ -52,7 +73,7 @@ steps:
     waitFor: [ "tf-init-and-plan" ]
 
 
-  # STEP 6 - DEPLOY DJANGO CONTAINER TO GKE
+  # STEP 8 - DEPLOY DJANGO CONTAINER TO GKE
   - id: Deploy-to-GKE
     name: 'gcr.io/cloud-builders/kubectl'
     entrypoint: 'kubectl'
@@ -62,7 +83,7 @@ steps:
       - k8s/django-deployment.yml
 
 
-  # STEP 7 - DEPLOY DJANGO SERVICE TO GKE
+  # STEP 9 - DEPLOY DJANGO SERVICE TO GKE
   - id: Deploy-Service-to-GKE
     name: 'gcr.io/cloud-builders/kubectl'
     entrypoint: 'kubectl'
