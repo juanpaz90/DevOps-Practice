@@ -9,5 +9,6 @@ api/migrations/__pycache__/*.pyc
 .idea
 .terraform
 .terraform.lock.hcl
+gcp_credentials
 
 db.sqlite3
