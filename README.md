@@ -42,4 +42,4 @@ Before you begin, ensure you have the following prerequisites in place:
 
 ## Here is the solution diagram.
 
-![Diagram.png](..%2F..%2F..%2F..%2FDownloads%2FDiagram.png)
+![Diagram.png](Diagram.png)
