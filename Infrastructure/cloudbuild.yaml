@@ -45,6 +45,7 @@ steps:
       - |
         cd Infrastructure/
         terraform plan
+    waitFor: [ "tf-init" ]
         
 
   # STEP 6 - TERRAFORM APPLY
@@ -56,6 +57,7 @@ steps:
       - |
         cd Infrastructure/
         terraform apply -auto-approve
+    waitFor: [ "tf-init", "tf-plan" ]
    
 
   # STEP 7 - CONNECT TO K8S CLUSTER
@@ -70,7 +72,7 @@ steps:
       - django-app-cluster
       - --region=us-central1
       - --project=$PROJECT_ID
-    waitFor: [ "tf-init-and-plan" ]
+    waitFor: [ "tf-init", "tf-plan", "tf-apply" ]
 
 
   # STEP 8 - DEPLOY DJANGO CONTAINER TO GKE
@@ -81,6 +83,7 @@ steps:
       - apply
       - -f
       - k8s/django-deployment.yml
+    waitFor: [ "Connect-to-GKE" ]
 
 
   # STEP 9 - DEPLOY DJANGO SERVICE TO GKE
@@ -91,3 +94,4 @@ steps:
       - apply
       - -f
       - k8s/django-service.yml
+    waitFor: [ "Deploy-to-GKE" ]
